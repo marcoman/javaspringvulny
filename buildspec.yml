@@ -1,0 +1,29 @@
+version: 0.2
+env:
+  parameter-store:
+    HAWK_API_KEY: /marco/stackhawk/javaspringvulny/api-key
+
+
+phases: 
+    pre_build: 
+        commands:
+            - echo Test code...
+            - echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin
+            - echo Logging in to Amazon ECR...
+            - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 478468688580.dkr.ecr.us-east-1.amazonaws.com 
+
+    build: 
+        commands: 
+            - echo "hello world"
+            - ls -l
+            - docker-compose build && docker-compose up -d
+            - |
+              docker run -v $(pwd):/hawk:rw -t \
+              -e API_KEY="${HAWK_API_KEY}" \
+              -e NO_COLOR=true \
+              stackhawk/hawkscan
+    post_build: 
+        commands:
+            - echo Build completed on `date`
+            - echo Pushing the Docker image
+            
