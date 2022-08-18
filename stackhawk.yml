@@ -1,20 +1,32 @@
-# -- stackhawk configuration for javaspringvulny --
 app:
-  # -- An applicationId obtained from the StackHawk platform. --
-  applicationId: b223e68f-5249-4001-be66-b0e352b26368 # (required)
-  # -- The environment for the applicationId defined in the StackHawk platform. --
-  env: AWS # (required)
-  # -- The url of your application to scan --
-  host: http://localhost:9000 # (required)
-
-
-# -- Customized Configuration for GraphQL/SOAP/OpenAPI, add here --
-  # Configuration Docs: https://docs.stackhawk.com/hawkscan/configuration/
-
-# -- If Authenticated Scanning is needed, add here --
-  # Authenticated Scanning Docs: https://docs.stackhawk.com/hawkscan/authenticated-scanning.html
-  # Authenticated Scanning Repo: https://github.com/kaakaww/scan-configuration/tree/main/Authentication
-
-# -- Help Section --
-  # Docs: https://docs.stackhawk.com/
-  # Contact Support: support@stackhawk.com
+  applicationId: ${APP_ID:b223e68f-5249-4001-be66-b0e352b26368}
+  env: ${APP_ENV:AWS}
+  host: ${APP_HOST:https://localhost:9000}
+  excludePaths:
+    - "/logout"
+#    - "/login-form-multi"
+#    - "/login-code"
+  antiCsrfParam: "_csrf"
+  authentication:
+    loggedInIndicator: "\\QSign Out\\E"
+    loggedOutIndicator: ".*Location:.*/login.*"
+    usernamePassword:
+      type: FORM
+      loginPath: /login
+      loginPagePath: /login
+      usernameField: username
+      passwordField: password
+      scanUsername: "user"
+      scanPassword: "password"
+    cookieAuthorization:
+      cookieNames:
+        - "JSESSIONID"
+    testPath:
+      path: /search
+      success: "HTTP.*200.*"
+hawk:
+  spider:
+    maxDurationMinutes: 5
+#  config:
+#    - "scanner.analyser.redirectEqualsNotFound=false"
+#    - "scanner.analyser.followRedirect=true"
