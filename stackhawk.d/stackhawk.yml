@@ -1,4 +1,20 @@
+# -- stackhawk configuration for javaspringvulny --
 app:
-  applicationId: ${APP_ID:dacc7d3e-babc-47d2-b040-ab117ab04526}
-  env: ${APP_ENV:dev}
-  host: ${APP_HOST:https://localhost:9000}
+  # -- An applicationId obtained from the StackHawk platform. --
+  applicationId: b223e68f-5249-4001-be66-b0e352b26368 # (required)
+  # -- The environment for the applicationId defined in the StackHawk platform. --
+  env: Development # (required)
+  # -- The url of your application to scan --
+  host: https://localhost:9000 # (required)
+
+
+# -- Customized Configuration for GraphQL/SOAP/OpenAPI, add here --
+  # Configuration Docs: https://docs.stackhawk.com/hawkscan/configuration/
+
+# -- If Authenticated Scanning is needed, add here --
+  # Authenticated Scanning Docs: https://docs.stackhawk.com/hawkscan/authenticated-scanning.html
+  # Authenticated Scanning Repo: https://github.com/kaakaww/scan-configuration/tree/main/Authentication
+
+# -- Help Section --
+  # Docs: https://docs.stackhawk.com/
+  # Contact Support: support@stackhawk.com
