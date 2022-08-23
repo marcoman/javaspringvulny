@@ -3,7 +3,6 @@ env:
   parameter-store:
     HAWK_API_KEY: /marco/stackhawk/javaspringvulny/api-key
 
-
 phases: 
     pre_build: 
         commands:
