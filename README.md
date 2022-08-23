@@ -4,6 +4,7 @@ Java Spring Vulny is a simple application that combines the power and sophistica
 
 ## Building and Running in Docker
 
+
 ### Build
 ```shell script
 docker-compose build
